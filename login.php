@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set("display_errors", 1);
+ini_set("display_errors", 0);
 // Initialize the session
 session_start();
  
@@ -55,23 +55,49 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if($stmt->num_rows == 1){                    
                     // Bind result variables
                     $stmt->bind_result($id, $username, $hashed_password);
-                    if($stmt->fetch()){
-                        if(password_verify($password, $hashed_password)){
-                            // Password is correct, so start a new session
-                            session_start();
+
+                        if($stmt->fetch()){
+                            if(password_verify($password, $hashed_password)){
+                                // Password is correct, so start a new session
+                                session_start();
                             
-                            // Store data in session variables
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
+                                // Store data in session variables
+                                $_SESSION["loggedin"] = true;
+                                $_SESSION["id"] = $id;
+                                $_SESSION["username"] = $username;                            
                             
-                            // Redirect user to welcome page
-                            header("location: welcome.php");
-                        } else{
-                            // Password is not valid, display a generic error message
-                            $login_err = "Invalid username or password.";
+                                                    // Check if user is banned, if banned then prevent log in.
+                                $sqlstatement = $mysqli->prepare("SELECT * FROM ban WHERE `incident_ID` = ?;"); //prepare the statement
+                                $sqlstatement->bind_param("i", $id); 
+                                $sqlstatement->execute(); //execute the query
+                                $sqlstatement->store_result(); //return the results
+
+                                $sqlstatement->bind_result($incident_id, $bandate, $banlength, $reason);
+
+                                if($sqlstatement->num_rows == 1){
+                                    $login_err = "Account currently banned.<br>Please contact support for more details.";
+
+                                    // Unset all of the session variables
+                                    $_SESSION = array();
+ 
+                                    // Destroy the session.
+                                    session_destroy();
+ 
+                                }else{
+                                    // Redirect user to welcome page
+                                    header("location: welcome.php");
+
+                                }
+
+                                
+                            } else{
+                                // Password is not valid, display a generic error message
+                                $login_err = "Invalid username or password.";
+                            }
                         }
-                    }
+                    
+
+
                 } else{
                     // Username doesn't exist, display a generic error message
                     $login_err = "Invalid username or password.";
@@ -82,6 +108,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             // Close statement
             $stmt->close();
+            $sqlstatement->close();
         }
     }
     
@@ -99,12 +126,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <style>
         body{ font: 14px sans-serif; }
         .wrapper{ width: 360px; padding: 20px; }
+        .wrapper{  margin: auto; width: 20%;}
     </style>
 </head>
 <body>
+    <img src="./images/Logoforproject.png" style = "width: 15%;  height: auto;   display: block; margin-left: auto; margin-right: auto;">
     <div class="wrapper">
-        <h2>Login</h2>
-        <p>Please fill in your credentials to login.</p>
+        
+        <h2>Log in</h2>
 
         <?php 
         if(!empty($login_err)){
@@ -126,7 +155,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
+            <p>New player? <a href="register.php">Sign up here</a>.</p>
         </form>
     </div>
 </body>

@@ -119,13 +119,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
+        .wrapper{  margin: auto; width: 20%; padding: 20px; }
     </style>
 </head>
 <body>
+    <img src="./images/Logoforproject.png" style = "width: 15%;  height: auto;   display: block; margin-left: auto; margin-right: auto;">
     <div class="wrapper">
+        
         <h2>Sign Up</h2>
-        <p>Please fill this form to create an account.</p>
+        <p>Fill in your details and start playing today</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
@@ -151,7 +153,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
+            <p>Got an account? <a href="login.php">Log in here</a>.</p>
         </form>
     </div>    
 </body>

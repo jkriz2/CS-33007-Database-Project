@@ -56,15 +56,28 @@ $conn->close();
     <h1 class="my-5">You have been a user since : <?php echo $date?></b>.<br>You do not currently have a subscription active.</h1>
     <!--Will actually check subscription later, will check by querying the subscription table with user's id and if no rows are returned or no in date it's assumed none/expired-->
 
+    
+    <?php 
+    //check for subscription, placeholder right now.
+
+    //$conn = new mysqli($servername, $username, $password, $dbname);
+    //$sqlstatement = $conn->prepare("SELECT member_since FROM users WHERE user_ID = ?"); //prepare the statement
+    //$sqlstatement->bind_param("s",$_SESSION["id"]); //$conn->bind_param("s", $currentusername);
+    //$sqlstatement->execute(); //execute the query
+    //$result = $sqlstatement->get_result(); //return the results
+    //if ($result->num_rows > 0) {
+
+    //}
+    //$conn->close();
+    ?>
+
     <p><nav class="nav justify-content-center">
     <a href="welcome.php" class="nav-item nav-link active">Home</a>
     <a href="subscription.php" class="nav-item nav-link">Subscriptions</a>
     <a href="purchase.php" class="nav-item nav-link">Purchase</a>
      
 </nav>
-    <p>
-        
-    </p>
+    
 </body>
 <footer style = "position: fixed; bottom: 10px; width: 100%; text-align: center;">
         <a href="reset-password.php" class="btn btn-warning">Reset Password</a>
