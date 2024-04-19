@@ -32,7 +32,6 @@ create table subscription
 	 sub_begin		int, --unix timestamp
 	 sub_expire     int, --unix timestamp + 2592000 (30 days)
 	 auto_renew		boolean NOT NULL, -- a T or F flag, must be defined
-	 last_renew		date,
 	 primary key (sub_ID)
 	);
 
