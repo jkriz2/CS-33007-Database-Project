@@ -9,6 +9,7 @@ require_once '/users/kent/student/jkrizan/config/databaselogin.php';
 
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $email = "";
+$time = 0;
 $username_err = $password_err = $confirm_password_err = $email_err = "";
  
 // Processing form data when form is submitted
@@ -82,13 +83,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO users (username, password, member_since, email) VALUES (?, ?, ?, ?)";
          
         if($stmt = $mysqli->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("sss", $param_username, $param_password, $param_email);
+            $stmt->bind_param("ssis", $param_username, $param_password, $time, $param_email);
             
             // Set parameters
+            $time=time();
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
             $param_email = $email;

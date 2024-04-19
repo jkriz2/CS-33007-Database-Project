@@ -4,7 +4,7 @@ create table users
 	(user_ID		int NOT NULL AUTO_INCREMENT,
 	 username		varchar(20),
 	 password		varchar(64), -- 12 char minimum, this should ideally store a salted hash later on
-	 member_since	datetime DEFAULT CURRENT_TIMESTAMP,
+	 member_since	int,
 	 email			varchar(320),
 	 primary key (user_ID)
 	);
@@ -29,8 +29,8 @@ create table subscription
 	(sub_ID			int NOT NULL,
 	 tier			varchar(8)
 	 	check (tier in ('Basic', 'Standard', 'Premium')), -- subscription tiers
-	 sub_length		numeric(30,0)
-	 	check (sub_length > 0), -- must be subscribed for some period of time, in days
+	 sub_begin		int, --unix timestamp
+	 sub_expire     int, --unix timestamp + 2592000 (30 days)
 	 auto_renew		boolean NOT NULL, -- a T or F flag, must be defined
 	 last_renew		date,
 	 primary key (sub_ID)
