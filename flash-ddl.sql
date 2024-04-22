@@ -29,8 +29,8 @@ create table subscription
 	(sub_ID			int NOT NULL,
 	 tier			varchar(8)
 	 	check (tier in ('Basic', 'Standard', 'Premium')), -- subscription tiers
-	 sub_begin		int, --unix timestamp
-	 sub_expire     int, --unix timestamp + 2592000 (30 days)
+	 sub_begin		int, -- unix timestamp
+	 sub_expire     	int, -- unix timestamp + 2592000 (30 days)
 	 auto_renew		boolean NOT NULL, -- a T or F flag, must be defined
 	 primary key (sub_ID)
 	);
