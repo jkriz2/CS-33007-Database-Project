@@ -5,7 +5,7 @@ ini_set("display_errors", 1);
 session_start();
 // Include config file
 // require_once '/users/kent/student/"name"/config/"name of config file"';
-include '/users/kent/student/tbesser/config/config.php';
+include '/users/kent/student/jkrizan/config/config.php';
  
 // Check if the user is logged in, if not then redirect them to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
