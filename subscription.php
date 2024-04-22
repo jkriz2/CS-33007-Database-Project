@@ -62,8 +62,6 @@ if ($result !== false && $result->num_rows > 0) {
 // Process auto-renewal toggle
 if (isset($_POST['toggle_renewal'])) {
     $user_id = $_POST['user_id'];
-    // Toggle auto-renewal in the database (you'll need to implement this logic)
-    // Example:
     $sql_update = "UPDATE subscription SET auto_renew = NOT auto_renew WHERE sub_ID = $user_id";
     $result_update = $conn->query($sql_update);
     
