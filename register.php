@@ -121,7 +121,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body{ font: 14px sans-serif; }
-        .wrapper{  margin: auto; width: 20%; padding: 20px; }
+        .wrapper{ margin: auto; width: 40%; padding: 20px}
+        .form-group{min-width: 200px; display: flex; flex-direction: column;}
+        .btn{justify-content: center;align-items: center;}
+        .sub{ flex-direction: row; justify-content: center; align-items: center;}
     </style>
 </head>
 <body>
@@ -137,7 +140,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>    
             <div class="form-group">
-                <label>email</label>
+                <label>Email</label>
                 <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
             </div>
@@ -151,8 +154,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
+            <div class="form-group sub">
+                <input type="submit" class="btn btn-success" value="Submit">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
             <p>Got an account? <a href="login.php">Log in here</a>.</p>
