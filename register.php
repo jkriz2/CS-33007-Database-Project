@@ -125,6 +125,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         .form-group{min-width: 200px; display: flex; flex-direction: column;}
         .btn{justify-content: center;align-items: center;}
         .sub{ flex-direction: row; justify-content: center; align-items: center;}
+        .got-account{font-style: italic;}
     </style>
 </head>
 <body>
@@ -158,7 +159,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="submit" class="btn btn-success" value="Submit">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
-            <p>Got an account? <a href="login.php">Log in here</a>.</p>
+            <p class="got-account">Got an account? <a href="login.php">Log in here</a>.</p>
         </form>
     </div>    
 </body>
