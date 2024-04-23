@@ -117,18 +117,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
  
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
     <style>
         body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-        .wrapper{  margin: auto; width: 20%;}
-        .form-control{min-width: 200px;}
+        .wrapper{ margin:auto; width:40%; padding: 20px;}
+        .new-player{font-style: italic;}
     </style>
 </head>
 <body>
@@ -157,7 +155,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>New player? <a href="register.php">Sign up here</a>.</p>
+            <p class="new-player">New player? <a href="register.php">Sign up here</a>.</p>
         </form>
     </div>
 </body>
