@@ -95,6 +95,7 @@ $conn->close();
     <?php echo $subscription_info; ?>
 </body>
 
+
 <footer>
 
 
