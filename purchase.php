@@ -90,7 +90,6 @@ $conn->close();
         .form-control{width: 70%; box-shadow: 0px 0px 6px #9768e3;}
         #tier{width: 150px; height: 30px; border:2px solid #9768e3; border-radius: 5px; transition: background-color 0.3s ease 0.3s;box-shadow: 0px 0px 18px black;}
         #tier:hover{background-color: #dacdfa;}
-
         .form-group{ display: flex; flex-direction: column; justify-content: center; align-items: center;}
 
     </style>
@@ -99,13 +98,14 @@ $conn->close();
 
     <div class="navigation">
         <img src="./images/Logoforproject.png" style = "width: 10%;  height: auto;">
-        <p>
+        <!-- <p>
         <nav class="nav justify-content-center">
         <a href="welcome.php" class="nav-item nav-link active">Home</a>
         <a href="subscription.php" class="nav-item nav-link">Subscriptions</a>
         <a href="purchase.php" class="nav-item nav-link">Purchase</a>
         </p>
-        </nav>
+        </nav> -->
+        <?php include "navigation.php"?>
     </div>
     <div class="forminput"><br />
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -118,7 +118,7 @@ $conn->close();
             
             <p>
             <div class="form-group">
-                    <label>Name on card</label>
+                    <label>Name</label>
                     <input type="text" name="cardname" class="form-control <?php echo (!empty($cardname_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $cardname; ?>">
                     <span class="invalid-feedback"><?php echo $cardname_err; ?></span>
             </div>
