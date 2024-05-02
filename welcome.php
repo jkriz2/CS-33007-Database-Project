@@ -77,7 +77,7 @@ $conn->close();
 
 <body>
     <img src="./images/Logoforproject.png" style="width: 10%;  height: auto;">
-    <h1 class="my-5">Welcome, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. To the Flash Fury Online© services page.</h1>
+    <h1 class="my-5">Welcome, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>, to the Flash Fury Online© services page.</h1>
     <h1 class="my-5">You have been a user since : <?php echo (date("Y-m-d", $date)); ?></b>.</h1>
     <!--Will actually check subscription later, will check by querying the subscription table with user's id and if no rows are returned or no in date it's assumed none/expired-->
 
