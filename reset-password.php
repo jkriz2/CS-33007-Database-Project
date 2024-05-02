@@ -9,7 +9,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
  
 // Include config file
-require_once '/users/kent/student/jkrizan/config/databaselogin.php';
+require_once '/users/kent/student/jkrizan/config/config.php';
  
 // Define variables and initialize with empty values
 $new_password = $confirm_password = "";

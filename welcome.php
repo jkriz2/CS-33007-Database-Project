@@ -5,7 +5,7 @@ ini_set("display_errors", 1);
 session_start();
 // Include config file
 //require_once '/users/kent/student/jkrizan/config/config.php';
-include '/users/kent/student/jkrizan/config/databaselogin.php';
+include '/users/kent/student/jkrizan/config/config.php';
 
 // Check if the user is logged in, if not then redirect them to login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
@@ -36,6 +36,22 @@ while ($row = $result->fetch_assoc()) {
     $date = $row["member_since"];
 }
 
+/* leftovers
+$sqlstatement = $conn->prepare("SELECT * FROM bans WHERE `user_ID` = ?;"); //prepare the statement
+$sqlstatement->bind_param("i", $id);
+$sqlstatement->execute(); //execute the query
+$sqlstatement->store_result(); //return the results
+
+$sqlstatement->bind_result($user_id, $incident_id);
+*/
+// Get the user ID dynamically (e.g., from session)
+$id = $_SESSION["id"];
+
+$sql = "SELECT * FROM unlocks WHERE user_ID = $id LIMIT 1";
+$sub = $conn->query($sql);
+
+
+
 $conn->close();
 ?>
 
@@ -62,22 +78,16 @@ $conn->close();
 <body>
     <img src="./images/Logoforproject.png" style="width: 10%;  height: auto;">
     <h1 class="my-5">Welcome, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. To the Flash Fury Online© services page.</h1>
-    <h1 class="my-5">You have been a user since : <?php echo (date("Y-m-d", $date)); ?></b>.<br>You do not currently have a subscription active.</h1>
+    <h1 class="my-5">You have been a user since : <?php echo (date("Y-m-d", $date)); ?></b>.</h1>
     <!--Will actually check subscription later, will check by querying the subscription table with user's id and if no rows are returned or no in date it's assumed none/expired-->
 
 
     <?php
-    //check for subscription, placeholder right now.
-
-    //$conn = new mysqli($servername, $username, $password, $dbname);
-    //$sqlstatement = $conn->prepare("SELECT member_since FROM users WHERE user_ID = ?"); //prepare the statement
-    //$sqlstatement->bind_param("s",$_SESSION["id"]); //$conn->bind_param("s", $currentusername);
-    //$sqlstatement->execute(); //execute the query
-    //$result = $sqlstatement->get_result(); //return the results
-    //if ($result->num_rows > 0) {
-
-    //}
-    //$conn->close();
+        if ($sub !== false && $sub->num_rows > 0) {
+            echo "You currently have a subscription active.";
+        }else{
+            echo "You do not currently have a subscription active.";
+        }
     ?>
 
     <p>

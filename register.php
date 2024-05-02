@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 // Include config file
-require_once '/users/kent/student/jkrizan/config/databaselogin.php';
+require_once '/users/kent/student/jkrizan/config/config.php';
  
 
 

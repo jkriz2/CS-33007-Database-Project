@@ -5,7 +5,7 @@ ini_set("display_errors", 1);
 session_start();
 // Include config file
 // require_once '/users/kent/student/"name"/config/"name of config file"';
-include '/users/kent/student/jkrizan/config/databaselogin.php';
+include '/users/kent/student/jkrizan/config/config.php';
 
 // Check if the user is logged in, if not then redirect them to login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
@@ -29,12 +29,18 @@ if (!$id || !is_numeric($id)) {
     die("Invalid user ID");
 }
 
-// Check if the user has a subscription
-$sql = "SELECT * FROM subscription WHERE sub_ID = $id LIMIT 1";
+// Adjustment to use the relational table to look up a user
+$sql = "SELECT * FROM unlocks WHERE user_ID = $id LIMIT 1";
 $result = $conn->query($sql);
+$info = $result->fetch_assoc();
+$sub_ID = $info['sub_ID']; //binding it to $sub_ID as php didn't like me sticking $info['sub_ID'] into the sql query
 
 // Check if the user has a subscription
 if ($result !== false && $result->num_rows > 0) {
+    // Fetch the user's subscription info
+    $sql = "SELECT * FROM subscription WHERE sub_ID = $sub_ID LIMIT 1";
+    $result = $conn->query($sql);
+
     // User has a subscription
     $subscription = $result->fetch_assoc();
     $subexpires = date("m-d-y", $subscription['sub_expire']);
@@ -59,10 +65,11 @@ if ($result !== false && $result->num_rows > 0) {
     }
 }
 
+
 // Process auto-renewal toggle
 if (isset($_POST['toggle_renewal'])) {
     $user_id = $_POST['user_id'];
-    $sql_update = "UPDATE subscription SET auto_renew = NOT auto_renew WHERE sub_ID = $user_id";
+    $sql_update = "UPDATE subscription SET auto_renew = NOT auto_renew WHERE sub_ID = $sub_ID";
     $result_update = $conn->query($sql_update);
 
     // Assuming the update was successful, you can redirect to the same page to refresh the subscription information

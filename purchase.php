@@ -5,7 +5,7 @@ ini_set("display_errors", 1);
 session_start();
 // Include config file
 //require_once '/users/kent/student/jkrizan/config/config.php';
-include '/users/kent/student/jkrizan/config/databaselogin.php';
+include '/users/kent/student/jkrizan/config/config.php';
 
 
 
