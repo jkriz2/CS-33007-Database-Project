@@ -17,6 +17,11 @@ require_once '/users/kent/student/jkrizan/config/config.php';
 $username = $password = "";
 $username_err = $password_err = $login_err = "";
 
+// If previous login attempt was unsuccessful
+if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
+    $login_err = "Invalid username or password.";
+}
+
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -88,11 +93,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
                         } else {
                             // Password is not valid, display a generic error message
+                            header("location: login.php?msg=failed");
                             $login_err = "Invalid username or password.";
                         }
                     }
                 } else {
                     // Username doesn't exist, display a generic error message
+                    header("location: login.php?msg=failed");
                     $login_err = "Invalid username or password.";
                 }
             } else {
