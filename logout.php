@@ -15,7 +15,8 @@ $_SESSION["username"] = NULL;
 
 <head>
     <meta charset="UTF-8" http-equiv="refresh" content="3;./index.php">
-    <title>Welcome</title>
+    <title>Logout - Flash Fury Online</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {

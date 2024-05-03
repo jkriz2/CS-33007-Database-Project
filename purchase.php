@@ -90,7 +90,8 @@ $conn->close();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title>Purchase - Flash Fury Online</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body{text-align: center; }
@@ -153,8 +154,15 @@ $conn->close();
                     <span class="invalid-feedback"><?php echo $expdate_err; ?></span>
             </div>
             <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Submit">
-                    <!--<input type="reset" class="btn btn-secondary ml-2" value="Reset">-->
+                    <script>
+                        function clicked(submit) {
+                            if(!confirm('Are you sure?')) {
+                                submit.preventDefault();
+                            }
+                        }
+                    </script>
+
+                    <input type="submit" class="btn btn-primary" value="Submit" onclick="clicked(event)">
             </div>
         </form>
     </div>
