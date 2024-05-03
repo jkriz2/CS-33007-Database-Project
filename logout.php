@@ -14,7 +14,7 @@ $_SESSION["username"] = NULL;
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" http-equiv="refresh" content="5;./index.php">
+    <meta charset="UTF-8" http-equiv="refresh" content="3;./index.php">
     <title>Welcome</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -32,7 +32,7 @@ $_SESSION["username"] = NULL;
 
 <body>
     <img src="./images/Logoforproject.png" style="width: 10%;  height: auto;">
-    <h1 class="my-5">Thanks for playing. See you soon!.</h1>
+    <h1 class="my-5">Thanks for playing. See you soon!</h1>
 
     <!-- <nav class="nav justify-content-center">
         <a href="welcome.php" class="nav-item nav-link active">Home</a>
