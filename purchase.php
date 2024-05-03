@@ -35,6 +35,8 @@ if(empty(trim($_POST["cardname"]))){
     $cardname_err = "Please enter a name.";     
 } elseif(strlen(trim($_POST["cardname"])) < 1){
     $cardname_err = "Please enter a name.";
+} elseif(strlen(trim($_POST["cardname"])) > 30){
+    $cardname_err = "Please enter a name.";
 } else{
     $cardname = trim($_POST["cardname"]);
 }
@@ -43,23 +45,31 @@ if(empty(trim($_POST["cardnumber"]))){
     $cardnumber_err = "Please enter a credit card number.";     
 } elseif(strlen(trim($_POST["cardnumber"])) < 8){
     $cardnumber_err = "Please enter a credit card number.";
-} else{
+} elseif(strlen(trim($_POST["cardnumber"])) > 19){
+    $cardnumber_err = "Please enter a credit card number.";
+} elseif(!ctype_digit(trim($_POST["cardnumber"]))){
+    $cardnumber_err = "Please enter a credit card number.";
+}else{
     $cardnumber = trim($_POST["cardnumber"]);
 }
 
 if(empty(trim($_POST["ccv"]))){
-    $ccv_err = "Please enter a ccv.";     
+    $ccv_err = "Please enter a CCV.";     
 } elseif(strlen(trim($_POST["ccv"])) < 3){
-    $ccv_err = "Please enter a ccv.";
-} else{
+    $ccv_err = "Please enter a CCV.";
+} elseif(!ctype_digit(trim($_POST["ccv"]))){
+    $cardnumber_err = "Please enter a CCV.";
+}else{
     $ccv = trim($_POST["ccv"]);
 }
 
 if(empty(trim($_POST["zipcode"]))){
-    $zipcode_err = "Please enter a zip code.";     
+    $zipcode_err = "Please enter a ZIP code.";     
 } elseif(strlen(trim($_POST["zipcode"])) < 5){
-    $zipcode_err = "Please enter a zip code.";
-} else{
+    $zipcode_err = "Please enter a ZIP code.";
+} elseif(!ctype_digit(trim($_POST["zipcode"]))){
+    $cardnumber_err = "Please enter a ZIP code.";
+}else{
     $zipcode = trim($_POST["zipcode"]);
 }
 
@@ -119,27 +129,27 @@ $conn->close();
             <p>
             <div class="form-group">
                     <label>Name</label>
-                    <input type="text" name="cardname" class="form-control <?php echo (!empty($cardname_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $cardname; ?>">
+                    <input type="text" name="cardname" maxlength="30" placeholder="Jane Doe" class="form-control <?php echo (!empty($cardname_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $cardname; ?>">
                     <span class="invalid-feedback"><?php echo $cardname_err; ?></span>
             </div>
             <div class="form-group">
                     <label>Card Number</label>
-                    <input type="text" name="cardnumber" class="form-control <?php echo (!empty($cardnumber_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $cardnumber; ?>">
+                    <input type="text" name="cardnumber" maxlength="19" placeholder="1111222233334444" class="form-control <?php echo (!empty($cardnumber_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $cardnumber; ?>">
                     <span class="invalid-feedback"><?php echo $cardnumber_err; ?></span>
             </div>   
             <div class="form-group">
                     <label>CCV</label>
-                    <input type="text" name="ccv" class="form-control <?php echo (!empty($ccv_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $ccv; ?>">
+                    <input type="text" name="ccv" maxlength="3" placeholder="123" class="form-control <?php echo (!empty($ccv_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $ccv; ?>">
                     <span class="invalid-feedback"><?php echo $ccv_err; ?></span>
             </div>   
             <div class="form-group">
                     <label>Zip Code</label>
-                    <input type="text" name="zipcode" class="form-control <?php echo (!empty($zipcode_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $zipcode; ?>">
+                    <input type="text" name="zipcode" maxlength="5" placeholder="12345" class="form-control <?php echo (!empty($zipcode_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $zipcode; ?>">
                     <span class="invalid-feedback"><?php echo $zipcode_err; ?></span>
             </div>   
             <div class="form-group">
                     <label>Exp. Date</label>
-                    <input type="month" name="expdate" class="form-control <?php echo (!empty($expdate_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $expdate; ?>">
+                    <input type="month" name="expdate" maxlength="5" placeholder="MM/YY" class="form-control <?php echo (!empty($expdate_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $expdate; ?>">
                     <span class="invalid-feedback"><?php echo $expdate_err; ?></span>
             </div>
             <div class="form-group">
