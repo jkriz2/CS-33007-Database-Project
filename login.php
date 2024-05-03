@@ -88,6 +88,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 // Destroy the session.
                                 session_destroy();
                             } else {
+                                $sql = "SELECT * FROM unlocks WHERE user_ID = $id LIMIT 1";
+                                $result = $mysqli->query($sql);
+                                $info = $result->fetch_assoc();
+                                $sub_ID = $info['sub_ID']; //binding it to $sub_ID as php didn't like me sticking $info['sub_ID'] into the sql query
+
+                                // Check if the user has a subscription
+                                if ($result !== false && $result->num_rows > 0) {
+                                    // Fetch the user's subscription info
+                                    $sql = "SELECT * FROM subscription WHERE sub_ID = $sub_ID LIMIT 1";
+                                    $result = $mysqli->query($sql);
+
+                                    // User has a subscription
+                                    $subscription = $result->fetch_assoc();
+                                    
+                                    // Delete subscription if expired
+                                    if (time() > $subscription['sub_expire']){
+                                        $sql = "DELETE FROM subscription WHERE sub_id = $sub_ID";
+                                        $mysqli->query($sql);
+                                    }
+                                }
+                                
                                 // Redirect user to welcome page
                                 header("location: welcome.php");
                             }
