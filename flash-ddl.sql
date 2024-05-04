@@ -15,7 +15,7 @@ create table purchase
 	 	check (tier in ('Basic', 'Standard', 'Premium')), -- subscription tiers
 	 price				numeric(5,2),
 	 name_on_card		varchar(30),
-	 exp_date			date,
+	 exp_date			varchar(10),
 	 cvv				numeric(4,0),
 	 zip				numeric(5,0),
 	 credit_card_number	numeric(19,0)
