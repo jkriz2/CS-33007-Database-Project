@@ -31,6 +31,21 @@ if ($conn->connect_error) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+
+    // Function to check if the user has an active subscription
+    function hasActiveSubscription($mysqli, $user_id){
+        $sql = "SELECT sub_ID FROM unlocks WHERE user_ID = ? LIMIT 1";
+        if($stmt = $mysqli->prepare($sql)){
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $stmt->store_result();
+            $num_rows = $stmt->num_rows;
+            $stmt->close();
+            return $num_rows > 0;
+        }
+        return false;
+    }
+
     // Validate cardname
     if (empty(trim($_POST["cardname"]))) {
         $cardname_err = "Please enter a name.";
@@ -59,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (strlen(trim($_POST["ccv"])) < 3) {
         $ccv_err = "Please enter a CCV.";
     } elseif (!ctype_digit(trim($_POST["ccv"]))) {
-        $cardnumber_err = "Please enter a CCV.";
+        $ccv_err = "Please enter a CCV.";
     } else {
         $ccv = trim($_POST["ccv"]);
     }
@@ -69,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (strlen(trim($_POST["zipcode"])) < 5) {
         $zipcode_err = "Please enter a ZIP code.";
     } elseif (!ctype_digit(trim($_POST["zipcode"]))) {
-        $cardnumber_err = "Please enter a ZIP code.";
+        $zipcode_err = "Please enter a ZIP code.";
     } else {
         $zipcode = trim($_POST["zipcode"]);
     }
@@ -84,6 +99,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $tier = trim($_POST["tier"]);
 
+
+    /* debug statements
+    echo $cardname . "<br>";
+    echo $cardnumber . "<br>";
+    echo $ccv . "<br>";
+    echo $zipcode . "<br>";
+    echo $expdate . "<br>";
+    echo $tier . "<br>";
+
+    echo $cardname_err . "<br>";
+    echo $cardnumber_err . "<br>";
+    echo $ccv_err . "<br>";
+    echo $zipcode_err . "<br>";
+    echo $expdate_err . "<br>";
+    */
+
     #we need to add all sorts of code over here and make sure we are inserting in properly
     // Assuming your existing code for database connection, session validation, and form validation...
 
@@ -96,6 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $price = 29.99; // Assuming the price is fixed for all tiers
             $stmt->bind_param("sdssiii", $tier, $price, $cardname, $expdate, $ccv, $zipcode, $cardnumber);
             $stmt->execute();
+            echo "yep";
 
             // Retrieve the last inserted ID (bill_ID)
             $bill_id = $mysqli->insert_id;
@@ -146,19 +178,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    // Function to check if the user has an active subscription
-    function hasActiveSubscription($mysqli, $user_id){
-        $sql = "SELECT sub_ID FROM unlocks WHERE user_ID = ? LIMIT 1";
-        if($stmt = $mysqli->prepare($sql)){
-            $stmt->bind_param("i", $user_id);
-            $stmt->execute();
-            $stmt->store_result();
-            $num_rows = $stmt->num_rows;
-            $stmt->close();
-            return $num_rows > 0;
-        }
-        return false;
-    }
+
 
     
     
