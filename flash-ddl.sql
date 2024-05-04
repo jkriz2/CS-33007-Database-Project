@@ -10,7 +10,7 @@ create table users
 	);
 
 create table purchase
-	(bill_ID			int NOT NULL,
+	(bill_ID			int NOT NULL AUTO_INCREMENT,
 	 tier				varchar(8)
 	 	check (tier in ('Basic', 'Standard', 'Premium')), -- subscription tiers
 	 price				numeric(5,2),
@@ -26,7 +26,7 @@ create table purchase
 	);
 
 create table subscription
-	(sub_ID			int NOT NULL,
+	(sub_ID			int NOT NULL AUTO_INCREMENT,
 	 tier			varchar(8)
 	 	check (tier in ('Basic', 'Standard', 'Premium')), -- subscription tiers
 	 sub_begin		int, -- unix timestamp
@@ -60,7 +60,7 @@ create table buys
 
 create table subscribes
 	(bill_ID	int,
-	 sub_ID		int,
+	 sub_ID		int AUTO_INCREMENT,
 	 primary key (bill_ID, sub_ID),
 	 foreign key (bill_ID) references purchase (bill_ID)
 	 	on delete cascade,
@@ -80,7 +80,7 @@ create table unlocks
 
 create table bans
 	(user_ID		int,
-	 incident_ID	int,
+	 incident_ID	int AUTO_INCREMENT,
 	 primary key (user_ID, incident_ID),
 	 foreign key (user_ID) references users (user_ID)
 	 	on delete cascade,
