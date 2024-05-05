@@ -135,7 +135,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Close the statement
             $stmt->close();
         }else{
-            echo "already have a subs";
+            echo "<script> alert('You already have a subscription!'); </script>";
+
         }
 
         if(!empty($bill_id)){
@@ -188,7 +189,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
         }else{
-            echo "already has a plan";
+            // echo "already has a plan";
+            // header("location: purchase.php");
+            echo "<script>document.getElementById('Form').reset();</script>";
             
         }
         
@@ -199,7 +202,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-    
+    $cardname = $expdate = $ccv = $zipcode = $cardnumber = "";
+$cardname_err = $expdate_err = $ccv_err = $zipcode_err = $cardnumber_err = "";
+$bill_id = $sub_ID = "";
     
 
     $conn->close();
@@ -277,7 +282,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php include "navigation.php" ?>
     </div>
     <div class="forminput"><br />
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="Form">
 
             <select name="tier" id="tier">
                 <option value="Basic">Basic</option>
