@@ -118,22 +118,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     #we need to add all sorts of code over here and make sure we are inserting in properly
     // Assuming your existing code for database connection, session validation, and form validation...
 
-// Check if form is submitted and there are no errors
+    // Check if form is submitted and there are no errors
     if($_SERVER["REQUEST_METHOD"] == "POST" && empty($cardname_err) && empty($cardnumber_err) && empty($ccv_err) && empty($zipcode_err) && empty($expdate_err)){
 
         // Prepare and execute the purchase insertion query
         $sql_purchase = "INSERT INTO purchase (tier, price, name_on_card, exp_date, cvv, zip, credit_card_number) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        if($stmt = $mysqli->prepare($sql_purchase)){
+        if(($stmt = $mysqli->prepare($sql_purchase)) && !hasActiveSubscription($mysqli, $_SESSION["id"])){
             $price = 29.99; // Assuming the price is fixed for all tiers
             $stmt->bind_param("sdssiii", $tier, $price, $cardname, $expdate, $ccv, $zipcode, $cardnumber);
             $stmt->execute();
-            echo "yep";
+        
 
             // Retrieve the last inserted ID (bill_ID)
             $bill_id = $mysqli->insert_id;
             
             // Close the statement
             $stmt->close();
+        }else{
+            echo "already have a subs";
+        }
+
+        if(!empty($bill_id)){
+            $sql_buys = "INSERT INTO buys (user_ID, bill_ID) VALUES (?, ?)";
+            if($stmt = $mysqli->prepare($sql_buys)){
+                $user_id = $_SESSION["id"];
+                $stmt->bind_param("ii", $user_id, $bill_id);
+                $stmt->execute();
+                $stmt->close();
+            }
         }
 
         // Insert subscription information only if the user doesn't have an active subscription
@@ -141,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sub_begin = time(); // Assuming the subscription begins immediately
             $sub_expire = strtotime('+30 days', $sub_begin); // Subscription expires after 30 days
             $auto_renew = 0; // Assuming auto-renewal is initially disabled
-
+            
             $sql_subscription = "INSERT INTO subscription (tier, sub_begin, sub_expire, auto_renew) VALUES (?, ?, ?, ?)";
             if($stmt = $mysqli->prepare($sql_subscription)){
                 $stmt->bind_param("siii", $tier, $sub_begin, $sub_expire, $auto_renew);
@@ -163,6 +175,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 }
 
+
                 // Insert into the unlocks table
                 if(!empty($sub_id)){
                     $sql_unlocks = "INSERT INTO unlocks (user_ID, sub_ID) VALUES (?, ?)";
@@ -174,8 +187,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 }
             }
+        }else{
+            echo "already has a plan";
+            
         }
+        
+        
     }
+
 
 
 
@@ -305,6 +324,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
     </div>
+
 
 
 
