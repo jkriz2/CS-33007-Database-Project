@@ -49,7 +49,7 @@ if ($result !== false && $result->num_rows > 0) {
     $subscription_info .= "<p>Expires on: {$subexpires}</p>";
     $subscription_info .= "<form method='post'>";
     $subscription_info .= "<input type='hidden' name='user_id' value='$id'>";
-    $subscription_info .= "<button type='submit' name='toggle_renewal' is ";
+    $subscription_info .= "<button type='submit' name='toggle_renewal' is class='btn btn-outline-success butt' style = 'color:black'";
     $subscription_info .= $subscription['auto_renew'] ?: "";
     $subscription_info .= ">Toggle Auto-Renewal</button>";
     $subscription_info .= $subscription['auto_renew'] ? "<span style='margin-left: 5px;'>&#10003;</span>" : "";
@@ -61,7 +61,7 @@ if ($result !== false && $result->num_rows > 0) {
         $subscription_info = "Error executing query: " . $conn->error;
     } else {
         // No subscription found
-        $subscription_info = "<h2>No Subscription Found</h2><p>Would you like to subscribe?</p>";
+        $subscription_info = "<h2 style='margin-top:15px;'>No Subscription Found</h2><p>Would you like to subscribe?</p>";
     }
 }
 
@@ -100,25 +100,83 @@ $conn->close();
             text-align: center;
 
         }
+        .butt:hover{
+            color:white;
+        }
+
+        #myVideo {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Cover the container without losing aspect ratio */
+            object-position: center;
+            /* Center the video within the element */
+            z-index: -1;
+        }
+        .wrapper {
+            /* position: fixed; */
+            padding: 20px;
+            margin: auto;
+            min-width: 300px;
+            /* width: 35%; */
+            max-width: 600px;
+            /* border: 2px solid green; */
+            margin-top: 5px;
+            height: 300px;
+            background: rgba( 255, 255, 255, 0.25 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 4px );
+            -webkit-backdrop-filter: blur( 4px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            transition: background ease 0.5s;
+            color: black;
+
+
+        }
+        .wrapper:hover{
+            background: rgba( 255, 255, 255, 0.6 );
+        }
+        .footer{
+            padding: 20px;
+            margin: auto;
+            /* min-width: 300px; */
+            /* width: 35%; */
+            /* max-width: 600px; */
+            /* border: 2px solid green; */
+            /* margin-top: 5px; */
+            background: rgba( 255, 255, 255, 0.25 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 4px );
+            -webkit-backdrop-filter: blur( 4px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            transition: background 0.3s ease 0.3s;
+            color: black;
+        }
     </style>
 </head>
 
 <body>
-    <img src="./images/Logoforproject.png" style="width: 10%;  height: auto;">
+    <video autoplay muted loop id="myVideo">
+        <source src="./images/live2.mp4" type="video/mp4">
+    </video>
+    <img src="./images/Logoforproject.png" style="width: 225px;  height: auto; margin-top: 100px;">
     <p>
-    <!-- <nav class="nav justify-content-center">
+    <div class="wrapper">
+
+
+        <!-- <nav class="nav justify-content-center">
         <a href="welcome.php" class="nav-item nav-link active">Home</a>
         <a href="subscription.php" class="nav-item nav-link">Subscriptions</a>
         <a href="purchase.php" class="nav-item nav-link">Purchase</a>
     </nav> -->
-    <?php include "navigation.php"?>
-    <?php echo $subscription_info; ?>
+        <?php include "navigation.php" ?>
+        <?php echo $subscription_info; ?>
+    </div>
 </body>
-
-
-<footer>
-
-
-</footer>
-
+<?php include "footer.php" ?>
 </html>

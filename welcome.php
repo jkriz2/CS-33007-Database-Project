@@ -73,11 +73,69 @@ $conn->close();
             font: 20px sans-serif;
             text-align: center;
         }
+        #myVideo {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Cover the container without losing aspect ratio */
+            object-position: center;
+            /* Center the video within the element */
+            z-index: -1;
+        }
+        .wrapper {
+            /* position: fixed; */
+            padding: 20px;
+            margin: auto;
+            min-width: 300px;
+            /* width: 35%; */
+            max-width: 600px;
+            /* border: 2px solid green; */
+            margin-top: 5px;
+            background: rgba( 255, 255, 255, 0.25 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 4px );
+            -webkit-backdrop-filter: blur( 4px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            transition: background 0.3s ease 0.3s;
+            color: black;
+
+
+        }
+        .wrapper:hover{
+            background: rgba( 255, 255, 255, 0.6 );
+        }
+
+        .footer{
+            padding: 20px;
+            margin: auto;
+            /* min-width: 300px; */
+            /* width: 35%; */
+            /* max-width: 600px; */
+            /* border: 2px solid green; */
+            /* margin-top: 5px; */
+            background: rgba( 255, 255, 255, 0.25 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 4px );
+            -webkit-backdrop-filter: blur( 4px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            transition: background 0.3s ease 0.3s;
+            color: black;
+        }
+
     </style>
 </head>
 
 <body>
-    <img src="./images/Logoforproject.png" style="width: 10%;  height: auto;">
+    <video autoplay muted loop id="myVideo">
+        <source src="./images/live2.mp4" type="video/mp4">
+    </video>
+    <img src="./images/Logoforproject.png" style="min-width: 250px; width: 10%;  height: auto;">
+    <div class="wrapper">
     <h1 class="my-5">Welcome, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>, to the Flash Fury Online© services page.</h1>
     <h1 class="my-5">You have been a user since : <?php echo (date("Y-m-d", $date)); ?></b>.</h1>
     <!--Will actually check subscription later, will check by querying the subscription table with user's id and if no rows are returned or no in date it's assumed none/expired-->
@@ -99,12 +157,14 @@ $conn->close();
 
     </nav> -->
     <?php include "navigation.php"?>
+    </div>
 
 </body>
-<footer style="position: fixed; bottom: 10px; width: 100%; text-align: center;">
+<!-- <footer class = "footer" style="position: fixed; bottom: -1px; width: 100%; text-align: center;">
     <a href="reset-password.php" class="btn btn-warning">Reset Password</a>
     <a href="logout.php" class="btn btn-danger ml-3">Sign Out</a>
-</footer>
+</footer> -->
+<?php include "footer.php"?>
 
 
 </html>

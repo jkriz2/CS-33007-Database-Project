@@ -101,14 +101,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                     // User has a subscription
                                     $subscription = $result->fetch_assoc();
-                                    
+
                                     // Delete subscription if expired
-                                    if (time() > $subscription['sub_expire']){
+                                    if (time() > $subscription['sub_expire']) {
                                         $sql = "DELETE FROM subscription WHERE sub_id = $sub_ID";
                                         $mysqli->query($sql);
                                     }
                                 }
-                                
+
                                 // Redirect user to welcome page
                                 header("location: welcome.php");
                             }
@@ -151,21 +151,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .wrapper {
+            /* position: fixed; */
             padding: 20px;
             margin: auto;
+            min-width: 300px;
             width: 35%;
             max-width: 400px;
+            /* border: 2px solid green; */
+            margin-top: 2px;
+            background: rgba( 255, 255, 255, 0.25 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 4px );
+            -webkit-backdrop-filter: blur( 4px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            transition: background 0.3s ease 0.3s;
+            color: black;
+
+        }
+        .wrapper:hover{
+            background: rgba( 255, 255, 255, 0.6 );
         }
 
         .form-control {
             min-width: 200px;
         }
-        .new-player{font-style: italic;}
+
+        .new-player {
+            font-style: italic;
+        }
+
+        #myVideo {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Cover the container without losing aspect ratio */
+            object-position: center;
+            /* Center the video within the element */
+            z-index: -1;
+        }
     </style>
 </head>
 
 <body>
-    <img src="./images/Logoforproject.png" style="width: 15%;  height: auto;   display: block; margin-left: auto; margin-right: auto;">
+    <video autoplay muted loop id="myVideo">
+        <source src="./images/live2.mp4" type="video/mp4">
+    </video>
+
+    <img src="./images/Logoforproject.png" style="min-width: 220px; width: 15%;  height: auto;   display: block; margin-left: auto; margin-right: auto;">
     <div class="wrapper">
 
         <h2>Log in</h2>

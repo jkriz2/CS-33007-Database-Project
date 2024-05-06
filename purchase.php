@@ -264,14 +264,42 @@ $bill_id = $sub_ID = "";
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            color:white;
+        }
+        .footer{
+            padding: 20px;
+            margin: auto;
+            background: rgba( 255, 255, 255, 0.25 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 4px );
+            -webkit-backdrop-filter: blur( 4px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            transition: background 0.3s ease 0.3s;
+            color: black;
+        }
+        #myVideo {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Cover the container without losing aspect ratio */
+            object-position: center;
+            /* Center the video within the element */
+            z-index: -1;
         }
     </style>
 </head>
 
 <body>
+    <video autoplay muted loop id="myVideo">
+        <source src="./images/live2.mp4" type="video/mp4">
+    </video>
 
     <div class="navigation">
-        <img src="./images/Logoforproject.png" style="width: 10%;  height: auto;">
+        <img src="./images/Logoforproject.png" style="width: 150px;  height: auto;">
         <!-- <p>
         <nav class="nav justify-content-center">
         <a href="welcome.php" class="nav-item nav-link active">Home</a>
@@ -325,20 +353,14 @@ $bill_id = $sub_ID = "";
                     }
                 </script>
 
-                <input type="submit" class="btn btn-primary" value="Submit" onclick="clicked(event)">
+                <input type="submit" class="btn btn-success" value="Submit" onclick="clicked(event)">
             </div>
         </form>
     </div>
 
 
-
-
-
 </body>
 
-<footer>
-
-
-</footer>
+<?php include 'footer.php' ?>
 
 </html>

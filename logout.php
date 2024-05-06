@@ -20,6 +20,11 @@ $_SESSION["username"] = NULL;
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
+            height:100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             font: 25px sans-serif;
             text-align: center;
         }
@@ -28,25 +33,31 @@ $_SESSION["username"] = NULL;
             font: 20px sans-serif;
             text-align: center;
         }
+        #myVideo {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Cover the container without losing aspect ratio */
+            object-position: center;
+            /* Center the video within the element */
+            z-index: -1;
+        }
+        .my-5{
+            color:white;
+        }
     </style>
 </head>
 
 <body>
-    <img src="./images/Logoforproject.png" style="width: 10%;  height: auto;">
+    <video autoplay muted loop id="myVideo">
+        <source src="./images/live2.mp4" type="video/mp4">
+    </video>
+    <img src="./images/Logoforproject.png" style="width: 255px;  height: auto;">
     <h1 class="my-5">Thanks for playing. See you soon!</h1>
 
-    <!-- <nav class="nav justify-content-center">
-        <a href="welcome.php" class="nav-item nav-link active">Home</a>
-        <a href="subscription.php" class="nav-item nav-link">Subscriptions</a>
-        <a href="purchase.php" class="nav-item nav-link">Purchase</a>
-
-    </nav> -->
-
 </body>
-<!-- <footer style="position: fixed; bottom: 10px; width: 100%; text-align: center;">
-    <a href="reset-password.php" class="btn btn-warning">Reset Password</a>
-    <a href="logout.php" class="btn btn-danger ml-3">Sign Out</a>
-</footer> -->
-
 
 </html>
